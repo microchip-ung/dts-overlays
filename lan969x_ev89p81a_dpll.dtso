@@ -1,0 +1,24 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@0 {
+		target = <&spi2>;
+		__overlay__ {
+			spi@0 {
+				compatible = "microchip,zl80732-spi";
+				reg = <0>;
+				spi-max-frequency = <8000000>;
+
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				phc@0 {
+					compatible = "microchip,zl80732-phc";
+					reg = <0>;
+				};
+			};
+		};
+	};
+};

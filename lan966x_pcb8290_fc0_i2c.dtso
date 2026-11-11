@@ -1,0 +1,90 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/dts-v1/;
+/plugin/;
+
+#include "phy-lan966x-serdes.h"
+#include "arm-gic.h"
+#include "irq.h"
+#include "atmel-flexcom.h"
+
+/ {
+	fragment@0 {
+		target = <&gpio>;
+		__overlay__ {
+			fc0_b_rxd_pins: fc0-b-rxd-pins {
+				pins = "GPIO_25";
+				function = "fc0_b";
+			};
+
+			fc0_b_txd_pins: fc0-b-txd-pins {
+				pins = "GPIO_26";
+				function = "fc0_b";
+			};
+
+			fc0_slc_gate_pins_i: fc0_slc_gate0_pins-i {
+			        pins = "GPIO_41", "GPIO_49";
+				function = "gpio";
+				output-low;
+			};
+			fc0_slc_gate1_pins: fc0_slc_gate1-pins {
+				pins = "GPIO_41";
+				function = "twi_slc_gate_ad";
+				output-high;
+			};
+			fc0_slc_gate3_pins: fc0_slc_gate3-pins {
+				pins = "GPIO_49";
+				function = "twi_slc_gate";
+				output-high;
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&flx0>;
+		__overlay__ {
+			atmel,flexcom-mode = <ATMEL_FLEXCOM_MODE_TWI>;
+			status = "okay";
+			i2c0: i2c@600 {
+				pinctrl-0 = <&fc0_b_rxd_pins>, <&fc0_b_txd_pins>;
+				pinctrl-names = "default";
+				i2c-analog-filter;
+				i2c-digital-filter;
+				i2c-digital-filter-width-ns = <35>;
+				i2c-sda-hold-time-ns = <1500>;
+				status = "okay";
+			};
+		};
+	};
+
+	fragment@2 {
+		target = <&soc>;
+		__overlay__ {
+			i2c0_imux: i2c0-imux@0 {
+				compatible = "i2c-mux-pinctrl";
+				#address-cells = <1>;
+				#size-cells = <0>;
+				i2c-parent = <&i2c0>;
+			};
+		};
+	};
+
+	fragment@3 {
+		target = <&i2c0_imux>;
+		__overlay__ {
+			pinctrl-names =	"i2c102", "i2c103", "idle";
+			pinctrl-0 = <&fc0_slc_gate1_pins>;
+			pinctrl-1 = <&fc0_slc_gate3_pins>;
+			pinctrl-2 = <&fc0_slc_gate_pins_i>;
+			i2c102: i2c_sfp1 {
+				reg = <0x0>;
+				#address-cells = <1>;
+				#size-cells = <0>;
+			};
+			i2c103: i2c_sfp2 {
+				reg = <0x1>;
+				#address-cells = <1>;
+				#size-cells = <0>;
+			};
+		};
+	};
+};

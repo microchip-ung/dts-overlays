@@ -1,0 +1,64 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/dts-v1/;
+/plugin/;
+
+#include "arm-gic.h"
+#include "irq.h"
+
+/ {
+	fragment@0 {
+		target = <&gpio>;
+
+		mdio_pins: mdio-pins {
+			pins = "GPIO_9", "GPIO_10";
+			function = "miim";
+		};
+
+		mdio_irq_pins: mdio-irq-pins {
+			pins = "GPIO_11";
+			function = "miim_irq";
+		};
+	};
+
+	fragment@1 {
+		target = <&mdio0>;
+		__overlay__ {
+			pinctrl-0 = <&mdio_pins>, <&mdio_irq_pins>;
+			pinctrl-names = "default";
+			status = "okay";
+
+			phy28: ethernet-phy28 {
+				reg = <28>;
+				interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+			};
+		};
+	};
+
+	fragment@2 {
+		target = <&ethernet_ports>;
+		__overlay__ {
+			port28: port@28 {
+				reg = <28>;
+				microchip,bandwidth = <1000>;
+				status = "okay";
+				phy-handle = <&phy28>;
+				phy-mode = "rgmii-id";
+			};
+		};
+	};
+
+	fragment@3 {
+		target = <&switch>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@4 {
+		target = <&serdes>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+};

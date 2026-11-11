@@ -1,0 +1,114 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/dts-v1/;
+/plugin/;
+
+#include "phy-lan966x-serdes.h"
+#include "arm-gic.h"
+#include "irq.h"
+#include "gpio.h"
+
+/ {
+	fragment@0 {
+		target = <&mdio0>;
+		__overlay__ {
+			pinctrl-0 = <&miim_a_pins>;
+			pinctrl-names = "default";
+			status = "okay";
+
+			phy4: ethernet-phy4 {
+				reg = <0x14>;
+				interrupts = <24 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+				load-save-gpios = <&gpio 41 GPIO_ACTIVE_HIGH>;
+			};
+			phy5: ethernet-phy5 {
+				reg = <0x15>;
+				interrupts = <24 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+				load-save-gpios = <&gpio 41 GPIO_ACTIVE_HIGH>;
+			};
+			phy6: ethernet-phy6 {
+				reg = <0x16>;
+				interrupts = <24 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+				load-save-gpios = <&gpio 41 GPIO_ACTIVE_HIGH>;
+			};
+			phy7: ethernet-phy7 {
+				reg = <0x17>;
+				interrupts = <24 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+				load-save-gpios = <&gpio 41 GPIO_ACTIVE_HIGH>;
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&port4>;
+		__overlay__ {
+			reg = <6>;
+			status = "okay";
+			phy-handle = <&phy6>;
+			phy-mode = "qsgmii";
+			phys = <&serdes 4 SERDES6G(2)>;
+		};
+	};
+
+	fragment@2 {
+		target = <&port5>;
+		__overlay__ {
+			reg = <7>;
+			status = "okay";
+			phy-handle = <&phy7>;
+			phy-mode = "qsgmii";
+			phys = <&serdes 5 SERDES6G(2)>;
+		};
+	};
+
+	fragment@3 {
+		target = <&port6>;
+		__overlay__ {
+			reg = <4>;
+			status = "okay";
+			phy-handle = <&phy4>;
+			phy-mode = "qsgmii";
+			phys = <&serdes 6 SERDES6G(2)>;
+		};
+	};
+
+	fragment@4 {
+		target = <&port7>;
+		__overlay__ {
+			reg = <5>;
+			status = "okay";
+			phy-handle = <&phy5>;
+			phy-mode = "qsgmii";
+			phys = <&serdes 7 SERDES6G(2)>;
+		};
+	};
+
+	fragment@5 {
+		target = <&serdes>;
+		__overlay__ {
+			status = "okay";
+		//	microchip,s2-tx-inverted;
+		};
+	};
+
+	fragment@6 {
+		target = <&gpio>;
+		__overlay__ {
+			miim_a_pins: mdio-pins {
+				/* MDC, MDIO */
+				pins =  "GPIO_28", "GPIO_29";
+				function = "miim_a";
+			};
+		};
+	};
+
+	fragment@7 {
+		target = <&switch>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+};

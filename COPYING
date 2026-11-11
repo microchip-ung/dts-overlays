@@ -1,0 +1,24 @@
+Copyright (c) 2002-2026 Microchip Corporation "Microchip".
+
+Microchip's own files in this repository (device tree overlay sources
+and Microchip-authored dt-bindings headers) are dual-licensed under:
+
+	SPDX-License-Identifier: GPL-2.0 OR MIT
+
+at your option. See LICENSES/GPL-2.0 and LICENSES/MIT for the full
+license texts.
+
+The following vendored, non-Microchip-authored files retain their own
+original license, not the dual license above:
+
+	gpio.h                  GPL-2.0 OR BSD-2-Clause (Linux kernel dt-bindings)
+	irq.h                   GPL-2.0 OR MIT (Linux kernel dt-bindings)
+	arm-gic.h               GPL-2.0 OR MIT (Linux kernel dt-bindings)
+	atmel-flexcom.h         GPL-2.0-only (Atmel-assigned/Microchip-owned, author's original license choice kept)
+
+See LICENSES/BSD-2-Clause for the additional text referenced by gpio.h.
+
+The license of each source file is also given in its own SPDX
+license identifier comment. For further information see
+https://spdx.org/.
+

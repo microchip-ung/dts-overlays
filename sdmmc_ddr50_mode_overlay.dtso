@@ -1,0 +1,18 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/dts-v1/;
+/plugin/;
+
+#include "mchp,lan966x_icpu.h"
+#include "microchip,lan966x.h"
+
+/ {
+	fragment@0 {
+		target = <&sdmmc0>;
+		__overlay__ {
+			pinctrl-0 = <&emmc_sd_pins>, <&sdmmc_pins>;
+			pinctrl-names = "default";
+			sd-uhs-ddr50;
+			status = "okay";
+		};
+	};
+};

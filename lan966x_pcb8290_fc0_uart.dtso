@@ -1,0 +1,32 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/dts-v1/;
+/plugin/;
+
+#include "arm-gic.h"
+#include "irq.h"
+#include "atmel-flexcom.h"
+
+/ {
+	fragment@0 {
+		target = <&gpio>;
+		__overlay__ {
+			fc0_b_pins: fc0-b-pins {
+				pins = "GPIO_24", "GPIO_25", "GPIO_26";
+				function = "fc0_b";
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&flx0>;
+		__overlay__ {
+			atmel,flexcom-mode = <ATMEL_FLEXCOM_MODE_USART>;
+			status = "okay";
+			usart0: serial@200 {
+				pinctrl-0 = <&fc0_b_pins>;
+				pinctrl-names = "default";
+				status = "okay";
+			};
+		};
+	};
+};

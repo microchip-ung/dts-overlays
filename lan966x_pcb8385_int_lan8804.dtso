@@ -1,0 +1,63 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/dts-v1/;
+/plugin/;
+
+#include "phy-lan966x-serdes.h"
+#include "arm-gic.h"
+#include "irq.h"
+
+/ {
+	fragment@0 {
+		target = <&mdio1>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@1 {
+		target = <&phy0>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@2 {
+		target = <&phy1>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+	fragment@3 {
+		target = <&port0>;
+		__overlay__ {
+			phy-handle = <&phy0>;
+			phy-mode = "gmii";
+			phys = <&serdes 0 CU(0)>;
+			status = "okay";
+		};
+	};
+
+	fragment@4 {
+		target = <&port1>;
+		__overlay__ {
+			phy-handle = <&phy1>;
+			phy-mode = "gmii";
+			phys = <&serdes 1 CU(1)>;
+			status = "okay";
+		};
+	};
+
+	fragment@5 {
+		target = <&serdes>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@6 {
+		target = <&switch>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+};

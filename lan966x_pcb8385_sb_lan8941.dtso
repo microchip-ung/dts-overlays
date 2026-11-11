@@ -1,0 +1,60 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/dts-v1/;
+/plugin/;
+
+#include "phy-lan966x-serdes.h"
+#include "arm-gic.h"
+#include "irq.h"
+
+/ {
+	fragment@0 {
+		target = <&mdio0>;
+		__overlay__ {
+			pinctrl-0 = <&miim_a_pins>;
+			pinctrl-names = "default";
+			status = "okay";
+
+			phy3: ethernet-phy3 {
+				reg = <3>;
+				interrupts = <24 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&port4>;
+		__overlay__ {
+			reg = <4>;
+			status = "okay";
+			phy-handle = <&phy3>;
+			phy-mode = "sgmii";
+			phys = <&serdes 4 SERDES6G(2)>;
+		};
+	};
+
+	fragment@2 {
+		target = <&serdes>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@3 {
+		target = <&gpio>;
+		__overlay__ {
+			miim_a_pins: mdio-pins {
+				/* MDC, MDIO */
+				pins =  "GPIO_28", "GPIO_29";
+				function = "miim_a";
+			};
+		};
+	};
+
+	fragment@4 {
+		target = <&switch>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+};

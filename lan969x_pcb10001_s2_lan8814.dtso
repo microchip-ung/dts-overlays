@@ -1,0 +1,275 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/dts-v1/;
+/plugin/;
+
+#include "arm-gic.h"
+#include "irq.h"
+
+/ {
+	fragment@0 {
+		target = <&gpio>;
+		__overlay__ {
+
+			mdio_pins: mdio-pins {
+				pins = "GPIO_9", "GPIO_10";
+				function = "miim";
+			};
+
+			mdio_irq_pins: mdio-irq-pins {
+				pins = "GPIO_11";
+				function = "miim_irq";
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&mdio0>;
+		__overlay__ {
+			status = "okay";
+
+			phy8: phy@8 {
+				reg = <8>;
+				interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+			};
+
+			phy9: phy@9 {
+				reg = <9>;
+				interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+			};
+
+			phy10: phy@10 {
+				reg = <10>;
+				interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+			};
+
+			phy11: phy@11 {
+				reg = <11>;
+				interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+			};
+
+			phy12: phy@12 {
+				reg = <12>;
+				interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+			};
+
+			phy13: phy@13 {
+				reg = <13>;
+				interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+			};
+
+			phy14: phy@14 {
+				reg = <14>;
+				interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+			};
+
+			phy15: phy@15 {
+				reg = <15>;
+				interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+			};
+
+			phy16: phy@16 {
+				reg = <16>;
+				interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+			};
+
+			phy17: phy@17 {
+				reg = <17>;
+				interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+			};
+
+			phy18: phy@18 {
+				reg = <18>;
+				interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+			};
+
+			phy19: phy@19 {
+				reg = <19>;
+				interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+			};
+
+			phy20: phy@20 {
+				reg = <20>;
+				interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+			};
+
+			phy21: phy@21 {
+				reg = <21>;
+				interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+			};
+
+			phy22: phy@22 {
+				reg = <22>;
+				interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+			};
+
+			phy23: phy@23 {
+				reg = <23>;
+				interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+			};
+		};
+	};
+
+	fragment@2 {
+		target = <&ethernet_ports>;
+		__overlay__ {
+
+			port4: port@4 {
+				reg = <4>;
+				microchip,bandwidth = <1000>;
+				phy-handle = <&phy8>;
+				phy-mode = "qsgmii";
+				phys = <&serdes 1>;
+			};
+
+			port5: port@5 {
+				reg = <5>;
+				microchip,bandwidth = <1000>;
+				phy-handle = <&phy9>;
+				phy-mode = "qsgmii";
+				phys = <&serdes 1>;
+			};
+
+			port6: port@6 {
+				reg = <6>;
+				microchip,bandwidth = <1000>;
+				phy-handle = <&phy10>;
+				phy-mode = "qsgmii";
+				phys = <&serdes 1>;
+			};
+
+			port7: port@7 {
+				reg = <7>;
+				microchip,bandwidth = <1000>;
+				phy-handle = <&phy11>;
+				phy-mode = "qsgmii";
+				phys = <&serdes 1>;
+			};
+
+			port8: port@8 {
+				reg = <8>;
+				microchip,bandwidth = <1000>;
+				phy-handle = <&phy12>;
+				phy-mode = "qsgmii";
+				phys = <&serdes 2>;
+			};
+
+			port9: port@9 {
+				reg = <9>;
+				microchip,bandwidth = <1000>;
+				phy-handle = <&phy13>;
+				phy-mode = "qsgmii";
+				phys = <&serdes 2>;
+			};
+
+			port10: port@10 {
+				reg = <10>;
+				microchip,bandwidth = <1000>;
+				phy-handle = <&phy14>;
+				phy-mode = "qsgmii";
+				phys = <&serdes 2>;
+			};
+
+			port11: port@11 {
+				reg = <11>;
+				microchip,bandwidth = <1000>;
+				phy-handle = <&phy15>;
+				phy-mode = "qsgmii";
+				phys = <&serdes 2>;
+			};
+
+			port12: port@12 {
+				reg = <12>;
+				microchip,bandwidth = <1000>;
+				phy-handle = <&phy16>;
+				phy-mode = "qsgmii";
+				phys = <&serdes 3>;
+			};
+
+			port13: port@13 {
+				reg = <13>;
+				microchip,bandwidth = <1000>;
+				phy-handle = <&phy17>;
+				phy-mode = "qsgmii";
+				phys = <&serdes 3>;
+			};
+
+			port14: port@14 {
+				reg = <14>;
+				microchip,bandwidth = <1000>;
+				phy-handle = <&phy18>;
+				phy-mode = "qsgmii";
+				phys = <&serdes 3>;
+			};
+
+			port15: port@15 {
+				reg = <15>;
+				microchip,bandwidth = <1000>;
+				phy-handle = <&phy19>;
+				phy-mode = "qsgmii";
+				phys = <&serdes 3>;
+			};
+
+			port16: port@16 {
+				reg = <16>;
+				microchip,bandwidth = <1000>;
+				phy-handle = <&phy20>;
+				phy-mode = "qsgmii";
+				phys = <&serdes 4>;
+			};
+
+			port17: port@17 {
+				reg = <17>;
+				microchip,bandwidth = <1000>;
+				phy-handle = <&phy21>;
+				phy-mode = "qsgmii";
+				phys = <&serdes 4>;
+			};
+
+			port18: port@18 {
+				reg = <18>;
+				microchip,bandwidth = <1000>;
+				phy-handle = <&phy22>;
+				phy-mode = "qsgmii";
+				phys = <&serdes 4>;
+			};
+
+			port19: port@19 {
+				reg = <19>;
+				microchip,bandwidth = <1000>;
+				phy-handle = <&phy23>;
+				phy-mode = "qsgmii";
+				phys = <&serdes 4>;
+			};
+		};
+	};
+
+	fragment@3 {
+		target = <&switch>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@4 {
+		target = <&serdes>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+};

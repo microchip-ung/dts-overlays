@@ -1,0 +1,199 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@0 {
+		target = <&spi2>;
+		__overlay__ {
+			spi@0 {
+				compatible = "microchip,zl80732-spi";
+				reg = <0>;
+				spi-max-frequency = <8000000>;
+
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				phc@0 {
+					compatible = "microchip,zl80732-phc";
+					reg = <0>;
+				};
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&phy3>;
+		__overlay__ {
+			microchip,1588-clock-freq = <125000000>;
+		};
+	};
+
+	fragment@2 {
+		target = <&phy4>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@3 {
+		target = <&phy5>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@4 {
+		target = <&phy6>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@5 {
+		target = <&phy7>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@6 {
+		target = <&phy8>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@7 {
+		target = <&phy9>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@8 {
+		target = <&phy10>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@9 {
+		target = <&phy11>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@10 {
+		target = <&phy12>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@11 {
+		target = <&phy13>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@12 {
+		target = <&phy14>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@13 {
+		target = <&phy15>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@14 {
+		target = <&phy16>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@15 {
+		target = <&phy17>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@16 {
+		target = <&phy18>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@17 {
+		target = <&phy19>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@18 {
+		target = <&phy20>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@19 {
+		target = <&phy21>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@20 {
+		target = <&phy22>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@21 {
+		target = <&phy23>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@22 {
+		target = <&phy24>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@23 {
+		target = <&phy25>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@24 {
+		target = <&phy26>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+
+	fragment@25 {
+		target = <&phy27>;
+		__overlay__ {
+			microchip,1588-clock-freq = <25000000>;
+		};
+	};
+};

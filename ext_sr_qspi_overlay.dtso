@@ -1,0 +1,37 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/dts-v1/;
+/plugin/;
+
+#include "mchp,lan966x_ecpu_sr.h"
+
+/ {
+
+	fragment@0 {
+		target = <&gpio>;
+		__overlay__ {
+			qspi1_pins: qspi1_pins {
+				pins = "GPIO_59", "GPIO_60", "GPIO_61", "GPIO_62", "GPIO_63", "GPIO_64";
+				function = "qspi1";
+			};
+		};
+	};
+
+	switch@101b,9956 {
+		target-path = "/soc/pcie@3400000/pci0,0/switch@101b,9956";
+		__overlay__ {
+			#address-cells = <0x1>;
+			#size-cells = <0x1>;
+			lan966x_qspi: qspi@ {
+				compatible = "mchp,lan966x_spi_rte";
+
+				pinctrl-0 = <&qspi1_pins>;
+				pinctrl-names = "default";
+
+				reg = <QSPI_0_ADDR QSPI_0_SIZE>,
+				      <QSPI_1_ADDR QSPI_1_SIZE>,
+				      <QSPI_2_ADDR QSPI_2_SIZE>;
+				reg-names = "qspi0", "qspi1", "qspi2";
+			};
+		};
+	};
+};

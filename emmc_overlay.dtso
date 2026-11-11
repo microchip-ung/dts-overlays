@@ -1,0 +1,22 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/dts-v1/;
+/plugin/;
+
+#include "mchp,lan966x_icpu.h"
+#include "microchip,lan966x.h"
+
+/ {
+	fragment@0 {
+		target = <&sdmmc0>;
+		__overlay__ {
+			cap-mmc-highspeed;
+			cap-mmc-hw-reset;
+			non-removable;
+			pinctrl-0 = <&emmc_sd_pins>, <&emmc_pins>;
+			pinctrl-names = "default";
+			no-1-8-v;
+			tx-phase = <0>; /* 180 degrees phase shift */
+			status = "okay";
+		};
+	};
+};

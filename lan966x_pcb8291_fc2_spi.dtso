@@ -1,0 +1,42 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/dts-v1/;
+/plugin/;
+
+#include <atmel-flexcom.h>
+#include <gpio.h>
+
+/ {
+	fragment@0 {
+		target = <&flx2>;
+		__overlay__ {
+		    atmel,flexcom-mode = <ATMEL_FLEXCOM_MODE_SPI>;
+		    status = "okay";
+
+		    spi2: spi@400 {
+			pinctrl-0 = <&fc2_spi_pins>;
+			pinctrl-names = "default";
+			cs-gpios = <&gpio 51 GPIO_ACTIVE_LOW>;
+			status = "okay";
+
+			spi@0 {
+			    compatible = "spidev";
+			    reg = <0>;
+			    spi-max-frequency = <1000000>;
+			};
+		    };
+		};
+	};
+
+	fragment@1 {
+		target = <&gpio>;
+		__overlay__ {
+			fc2_spi_pins: fc2-spi-pins {
+				/* SPI - SCLK, MISO, MOSI */
+				pins = "GPIO_43", "GPIO_44", "GPIO_45";
+				function = "fc2_b";
+			};
+		};
+	};
+};
+
+// vim: set ts=8 sw=8 sts=8 tw=80 cc=80,100 noet ft=dts : 

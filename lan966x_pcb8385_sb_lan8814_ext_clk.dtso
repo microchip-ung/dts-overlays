@@ -1,0 +1,135 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/dts-v1/;
+/plugin/;
+
+#include "phy-lan966x-serdes.h"
+#include "arm-gic.h"
+#include "irq.h"
+
+/ {
+	fragment@0 {
+		target = <&mdio0>;
+		__overlay__ {
+			pinctrl-0 = <&miim_a_pins>;
+			pinctrl-names = "default";
+			status = "okay";
+
+			phy15: ethernet-phy15 {
+				reg = <15>;
+				interrupts = <24 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+				microchip,1588-clock-freq = <125000000>;
+			};
+			phy16: ethernet-phy16 {
+				reg = <16>;
+				interrupts = <24 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+				microchip,1588-clock-freq = <125000000>;
+			};
+			phy17: ethernet-phy17 {
+				reg = <17>;
+				interrupts = <24 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+				microchip,1588-clock-freq = <125000000>;
+			};
+			phy18: ethernet-phy18 {
+				reg = <18>;
+				interrupts = <24 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-parent = <&gpio>;
+				microchip,1588-clock-freq = <125000000>;
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&port4>;
+		__overlay__ {
+			reg = <6>;
+			status = "okay";
+			phy-handle = <&phy17>;
+			phy-mode = "qsgmii";
+			phys = <&serdes 4 SERDES6G(2)>;
+		};
+	};
+
+	fragment@2 {
+		target = <&port5>;
+		__overlay__ {
+			reg = <7>;
+			status = "okay";
+			phy-handle = <&phy18>;
+			phy-mode = "qsgmii";
+			phys = <&serdes 5 SERDES6G(2)>;
+		};
+	};
+
+	fragment@3 {
+		target = <&port6>;
+		__overlay__ {
+			reg = <4>;
+			status = "okay";
+			phy-handle = <&phy15>;
+			phy-mode = "qsgmii";
+			phys = <&serdes 6 SERDES6G(2)>;
+		};
+	};
+
+	fragment@4 {
+		target = <&port7>;
+		__overlay__ {
+			reg = <5>;
+			status = "okay";
+			phy-handle = <&phy16>;
+			phy-mode = "qsgmii";
+			phys = <&serdes 7 SERDES6G(2)>;
+		};
+	};
+
+	fragment@5 {
+		target = <&serdes>;
+		__overlay__ {
+			status = "okay";
+			microchip,s2-tx-inverted;
+		};
+	};
+
+	fragment@6 {
+		target = <&gpio>;
+		__overlay__ {
+			miim_a_pins: mdio-pins {
+				/* MDC, MDIO */
+				pins =  "GPIO_28", "GPIO_29";
+				function = "miim_a";
+			};
+		};
+	};
+
+	fragment@7 {
+		target = <&switch>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@8 {
+		target = <&i2c1>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			i2c@70 {
+				compatible = "microchip,zl80732-i2c";
+				reg = <0x70>;
+				#address-cells = <1>;
+				#size-cells = <0>;
+				status = "okay";
+
+				phc@0 {
+					compatible = "microchip,zl80732-phc";
+					reg = <0>;
+					status = "okay";
+				};
+			};
+		};
+	};
+};

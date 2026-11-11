@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/dts-v1/;
+/plugin/;
+
+/ {
+	switch@101b,9956 {
+		target-path = "/soc/pcie@3400000/pci0,0/switch@101b,9956";
+		__overlay__ {
+			#address-cells = <0x1>;
+			#size-cells = <0x1>;
+			lan966x_uio: mscc_switch@0 {
+				compatible = "generic-uio";
+				reg = <0x0 0x2000000>;
+			};
+		};
+	};
+};

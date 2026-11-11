@@ -1,0 +1,42 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/dts-v1/;
+/plugin/;
+
+#include "phy-lan966x-serdes.h"
+#include "arm-gic.h"
+#include "irq.h"
+#include "atmel-flexcom.h"
+
+/ {
+	fragment@0 {
+		target = <&gpio>;
+		__overlay__ {
+			fc1_c_txd_pins: fc1-c-txd-pins {
+				pins = "GPIO_48";
+				function = "fc1_c";
+			};
+			
+			fc1_c_rxd_pins: fc1-c-rxd-pins {
+				pins = "GPIO_47";
+				function = "fc1_c";
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&flx1>;
+		__overlay__ {
+			atmel,flexcom-mode = <ATMEL_FLEXCOM_MODE_TWI>;
+			status = "okay";
+			i2c1: i2c@600 {
+				pinctrl-0 = <&fc1_c_rxd_pins>, <&fc1_c_txd_pins>;
+				pinctrl-names = "default";
+				i2c-analog-filter;
+				i2c-digital-filter;
+				i2c-digital-filter-width-ns = <35>;
+				i2c-sda-hold-time-ns = <1500>;
+				status = "okay";
+			};
+		};
+	};
+};
